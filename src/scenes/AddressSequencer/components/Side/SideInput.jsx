@@ -23,6 +23,9 @@ export default class SideInput extends Component {
       searchBox.setFields(['formatted_address', 'geometry']);
       searchBox.addListener('place_changed', () => {
         let place = searchBox.getPlace();
+        if (place.name) {
+          place.name = place.name.trim();
+        }
         this.setState({searchInputValue: ''});
         addNewAddress(place);
       });
