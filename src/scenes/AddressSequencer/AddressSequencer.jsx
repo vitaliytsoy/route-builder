@@ -34,25 +34,27 @@ class AddressSequencer extends Component {
       newAddress.formatted_address = newAddress.name;
       newAddress.geometry = {location: this.mapInstance.getCenter()};
     }
-    this.setState({ addressesList: [...this.state.addressesList, newAddress] });
+    this.setState(prevState => ({ addressesList: [...prevState.addressesList, newAddress] }));
   }
   deleteAddress = (addressId) => {
-    const newAddressesList = this.state.addressesList.filter( (item, index) => index !== addressId);
-    this.setState({ addressesList: newAddressesList});
+    this.setState(prevState => ({ addressesList: prevState.addressesList.filter( (item, index) => index !== addressId) }));
   }
   updateAddressPosition = (addressId, newPosition) => {
-    const { addressesList } = this.state;
-    const updatedAddressesList = addressesList.map((item) => {
-      if (item.id === addressId) {
-        item.geometry.location = newPosition;
-      }
-      return item;
+    this.setState(prevState => {
+      const updatedAddressesList = prevState.addressesList.map((item) => {
+        if (item.id === addressId) {
+          item.geometry.location = newPosition;
+        }
+        return item;
+      }); 
+      return {addressesList: updatedAddressesList};
     });
-    this.setState({addressesList: updatedAddressesList});
   }
   changeAddressOrder = (oldIndex, newIndex ) => {
-    const reorderedAdressesList = this.moveInnerArrayItem(this.state.addressesList, oldIndex, newIndex);
-    this.setState({addressesList: reorderedAdressesList});
+    this.setState(prevState => {
+      const reorderedAdressesList = this.moveInnerArrayItem(prevState.addressesList, oldIndex, newIndex);
+      return {addressesList: reorderedAdressesList}
+    });
   }
   moveInnerArrayItem = (arr, oldIndex, newIndex) => {
     let copyArray = Object.assign([], arr);
@@ -77,9 +79,6 @@ class AddressSequencer extends Component {
 
   render() {
     const { readyToRender, mapClass, addressesList } = this.state;
-    console.log(addressesList);
-    console.log(addressesList.geometry);
-
     return (
       <section className="sequencer">
       { readyToRender && 
