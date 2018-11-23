@@ -7,12 +7,11 @@ it('renders without crashing', () => {
     const wrapper = shallow(<AddressSequencer />);
 });
 
-it('check initial state', () => {
+it('should have specific initial state', () => {
     const wrapper = shallow(<AddressSequencer />);
-    const initialState = {
-        readyToRender: false,
-        addressesList: [],
-        mapClass: null,
-    }
-    expect(wrapper.state()).toEqual(initialState);
+    expect(wrapper.state().readyToRender).toEqual(false);
+    expect(wrapper.state().addressesList).toEqual([]);
 });
+
+
+
