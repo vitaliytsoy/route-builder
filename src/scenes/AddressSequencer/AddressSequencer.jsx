@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import GoogleMaps from 'google-maps';
+import GoogleMapsLoader from 'google-maps';
 import GoogleMapsConfig from './googlemap.config';
 import uuidv1 from 'uuid/v1';
 
@@ -19,11 +19,11 @@ class AddressSequencer extends Component {
   }
   componentDidMount = () => {
     const {KEY, LANGUAGE, VERSION, LIBRARIES} = GoogleMapsConfig;
-    GoogleMaps.KEY = KEY;
-    GoogleMaps.LANGUAGE = LANGUAGE;
-    GoogleMaps.LIBRARIES = LIBRARIES;
-    GoogleMaps.VERSION = VERSION;
-    GoogleMaps.load((google) => {
+    GoogleMapsLoader.KEY = KEY;
+    GoogleMapsLoader.LANGUAGE = LANGUAGE;
+    GoogleMapsLoader.LIBRARIES = LIBRARIES;
+    GoogleMapsLoader.VERSION = VERSION;
+    GoogleMapsLoader.load((google) => {
       this.setState({mapClass: google, readyToRender: true});
     });
   }
@@ -36,14 +36,14 @@ class AddressSequencer extends Component {
     }
     this.setState(prevState => ({ addressesList: [...prevState.addressesList, newAddress] }));
   }
-  deleteAddress = (addressId) => {
-    this.setState(prevState => ({ addressesList: prevState.addressesList.filter( (item, index) => index !== addressId) }));
+  deleteAddress = (addressIndex) => {
+    this.setState(prevState => ({ addressesList: prevState.addressesList.filter( (item, index) => index !== addressIndex) }));
   }
-  updateAddressPosition = (addressId, newPosition) => {
+  updateAddressPosition = (addressId, newLatLng) => {
     this.setState(prevState => {
       const updatedAddressesList = prevState.addressesList.map((item) => {
         if (item.id === addressId) {
-          item.geometry.location = newPosition;
+          item.geometry.location = newLatLng;
         }
         return item;
       }); 
