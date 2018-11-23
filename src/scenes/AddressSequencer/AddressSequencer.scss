@@ -1,0 +1,17 @@
+.sequencer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: aliceblue;
+  padding: 5% 0;
+  &--side {
+    width: 30%;
+    height: 100%;
+  }
+  &--map {
+    width: 70%;
+    height: 100%;
+    padding-left: 25px;
+    @import "components/Map/Map";
+  }
+}
