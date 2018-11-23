@@ -4,15 +4,16 @@ import PropTypes from 'prop-types';
 class Map extends Component {
   static propTypes = {
     google: PropTypes.object,
-    addressesList: PropTypes.array,
+    addressesList: PropTypes.array.isRequired,
     passMapInstanceToParent: PropTypes.func,
     updateAddressPosition: PropTypes.func,
   }
+  static defaultProps = {
+    addressesList: []
+  }
   constructor(props) {
     super(props);
-    this.state = {
-      mapInstance: null,
-    }
+    this.mapInstance = null;
     this.markers = [];
     this.markersIds = [];
     this.routeCoordinates = [];
@@ -20,32 +21,34 @@ class Map extends Component {
   }
   componentDidMount = () => {
     const { google } = this.props;
-    const map = new google.maps.Map(document.querySelector('.map'), {
-      zoom: 4, 
-      center: {lat: 55.7558, lng: 37.6173},
-      disableDefaultUI: true,
-      zoomControl: true,
-      mapTypeControl: false,
-      scaleControl: false,
-      streetViewControl: false,
-      rotateControl: false,
-      fullscreenControl: false,
-    });
-    this.routePath = new google.maps.Polyline({
-      path: this.routeCoordinates,
-      // geodesic: true,
-      // editable: true,
-      strokeColor: '#FF0000',
-      strokeOpacity: 1.0,
-      strokeWeight: 2,
-      map: map,
-    });
-    this.props.passMapInstanceToParent(map);
-    this.setState({mapInstance: map});
+    if (google) {
+      const map = new google.maps.Map(document.querySelector('.map'), {
+        zoom: 4, 
+        center: {lat: 55.7558, lng: 37.6173},
+        disableDefaultUI: true,
+        zoomControl: true,
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: false,
+      });
+      this.routePath = new google.maps.Polyline({
+        path: this.routeCoordinates,
+        // geodesic: true,
+        // editable: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        map: map,
+      });
+      this.props.passMapInstanceToParent(map);
+      this.mapInstance = map;
+    }
   }
-  componentDidUpdate = (prevProps, prevState) => {
-    const { google, updateAddressPosition } = this.props
-    const { mapInstance } = this.state;
+  componentDidUpdate = (prevProps) => {
+    const { google, updateAddressPosition } = this.props;
+    const  mapInstance  = this.mapInstance;
 
     const oldAddressesList = prevProps.addressesList;
     const newAddressesList = this.props.addressesList;
