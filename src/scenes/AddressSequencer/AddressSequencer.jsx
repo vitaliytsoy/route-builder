@@ -83,7 +83,7 @@ class AddressSequencer extends Component {
       <section className="sequencer">
       { readyToRender && 
       (
-        <div className="container container-flex-row">
+        <div className="container container-sequencer">
           <div className="sequencer--side">
             <Side google={mapClass} 
                   addressesList={addressesList} 

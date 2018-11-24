@@ -1,7 +1,4 @@
 .side {
-  // .side--input {
-
-  // }
   .side--list {
     padding-top: 25px;
     .list {
@@ -27,6 +24,15 @@
         .delete {
           margin-left: auto;
         }
+      }
+    }
+  }
+}
+@media (max-width: 767px) {
+  .side {
+    .side--list {
+      .list {
+        max-height: 12em;
       }
     }
   }
