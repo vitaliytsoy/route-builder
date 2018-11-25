@@ -12,10 +12,10 @@ class Side extends Component {
     addNewAddress: PropTypes.func,
     deleteAddress: PropTypes.func,
     changeAddrOrder: PropTypes.func,
-  }
+  };
   static defaultProps = {
     addressesList: []
-  }
+  };
   
   render() {
     const { addressesList, changeAddrOrder, deleteAddress, addNewAddress, google } = this.props;

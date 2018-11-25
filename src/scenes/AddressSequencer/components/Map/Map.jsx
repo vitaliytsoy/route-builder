@@ -7,10 +7,10 @@ class Map extends Component {
     addressesList: PropTypes.array.isRequired,
     passMapInstanceToParent: PropTypes.func,
     updateAddressPosition: PropTypes.func,
-  }
+  };
   static defaultProps = {
     addressesList: []
-  }
+  };
   constructor(props) {
     super(props);
     this.mapInstance = null;
@@ -45,7 +45,7 @@ class Map extends Component {
       this.props.passMapInstanceToParent(map);
       this.mapInstance = map;
     }
-  }
+  };
   componentDidUpdate = (prevProps) => {
     const { google, updateAddressPosition } = this.props;
     const  mapInstance  = this.mapInstance;
@@ -118,7 +118,7 @@ class Map extends Component {
       this.routeCoordinates.push(item.geometry.location);
     });
     this.routePath.setPath(this.routeCoordinates);
-  }
+  };
   
   render() {
     return (

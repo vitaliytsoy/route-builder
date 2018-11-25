@@ -30,11 +30,11 @@ export default class SideInput extends Component {
         addNewAddress(place);
       });
     }
-  }
+  };
   
   handleSeachInput = (event) => {
     this.setState({searchInputValue: event.target.value});
-  }
+  };
 
   render() {
     return (

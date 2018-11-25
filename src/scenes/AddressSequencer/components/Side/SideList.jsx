@@ -7,12 +7,12 @@ export default class SideList extends Component {
     items: PropTypes.array,
     changeAddrOrder: PropTypes.func,
     deleteAddress: PropTypes.func,
-  }
+  };
   constructor(props) {
-    super(props)
+    super(props);
     this.list = React.createRef();
   }
-  
+
   componentDidMount = () => {
     const { changeAddrOrder } = this.props;
     const el = this.list.current;

@@ -14,7 +14,7 @@ class AddressSequencer extends Component {
       readyToRender: false,
       addressesList: [],
       mapClass: null,
-    }
+    };
     this.mapInstance = null;
   }
   componentDidMount = () => {
@@ -26,7 +26,7 @@ class AddressSequencer extends Component {
     GoogleMapsLoader.load((google) => {
       this.setState({mapClass: google, readyToRender: true});
     });
-  }
+  };
   
   addAddress = (newAddress) => {
     newAddress.id = `${uuidv1()}`;
@@ -35,10 +35,10 @@ class AddressSequencer extends Component {
       newAddress.geometry = {location: this.mapInstance.getCenter()};
     }
     this.setState(prevState => ({ addressesList: [...prevState.addressesList, newAddress] }));
-  }
+  };
   deleteAddress = (addressIndex) => {
     this.setState(prevState => ({ addressesList: prevState.addressesList.filter( (item, index) => index !== addressIndex) }));
-  }
+  };
   updateAddressPosition = (addressId, newLatLng) => {
     this.setState(prevState => {
       const updatedAddressesList = prevState.addressesList.map((item) => {
@@ -55,7 +55,7 @@ class AddressSequencer extends Component {
       const reorderedAdressesList = this.moveInnerArrayItem(prevState.addressesList, oldIndex, newIndex);
       return {addressesList: reorderedAdressesList}
     });
-  }
+  };
   moveInnerArrayItem = (arr, oldIndex, newIndex) => {
     let copyArray = Object.assign([], arr);
     while (oldIndex < 0) {
@@ -72,10 +72,10 @@ class AddressSequencer extends Component {
     }
      copyArray.splice(newIndex, 0, copyArray.splice(oldIndex, 1)[0]);  
    return copyArray;
-  }
+  };
   getMapInstance = (mapInstance) => {
     this.mapInstance = mapInstance;
-  }
+  };
 
   render() {
     const { readyToRender, mapClass, addressesList } = this.state;
